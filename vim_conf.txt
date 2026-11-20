@@ -1,0 +1,11 @@
+syntax on
+set relativenumber
+set number
+set cursorline
+set cursorcolumn
+set nowrap
+set tabstop=4
+set shiftwidth=4
+set nobackup
+colorscheme habamax
+filetype on
