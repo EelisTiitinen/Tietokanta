@@ -6,6 +6,8 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
+	printf("%d", stringlen(argv[1]));
+	/*
 	if (stringcomp(argv[1], "write") == 0) {
 		if (argc < 3) {
 			printf("Tiedostoon ei voida kirjoittaa tyhjää!\n");
@@ -34,6 +36,6 @@ int main(int argc, char *argv[]) {
 			}
 			printf("%s, %d\n", output.str, output.strlen);
 		}
-	}
+	}*/
 	return 0;
 }

@@ -10,7 +10,7 @@ typedef struct {
 	int strlen;
 } DataStruct;
 
-extern int stringlenni(char *string);
+extern int stringlen(char *string);
 extern int stringcomp(char *string1, char *string2);
 extern int strToInt(char *string);
 extern void assignString(char *dstString, char *srcString);
