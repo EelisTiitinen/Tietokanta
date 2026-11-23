@@ -9,7 +9,7 @@ FILE *fptr;
 int writeFile(char *stringToWrite) {
 	fptr = fopen(FILENAME, "ab");
 	
-	data.strlen = stringlenni(stringToWrite);
+	data.strlen = stringlen(stringToWrite);
 	if (data.strlen >= STR_BUFFER) return -1;
 	assignString(data.str, stringToWrite);
 
