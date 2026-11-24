@@ -5,19 +5,19 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	if (stringcomp(argv[1], "write") == 0) {
+	if (stringComp(argv[1], "write") == 0) {
 		if (argc < 3) {
-			print("Tiedostoon ei voida kirjoittaa tyhjää!\n");
+			print("Tietokantaan ei voida kirjoittaa tyhjää!\n");
 		}
 		else if (writeFile(argv[2]) == -1) {
 			print("Liian pitkä syöte!\n");
 		}
 	}
-	else if (stringcomp(argv[1], "read") == 0) {
-		if (argc < 3 || (stringcomp(argv[2], "all") == 0)) {
-			int dataCount = readFile(-1, NULL);
-			if (dataCount == -1) {
-				print("Tiedostoa ei voitu avat!\n");
+	else if (stringComp(argv[1], "read") == 0) {
+		if (argc < 3 || (stringComp(argv[2], "all") == 0)) {
+			int dataCount;
+			if ((dataCount = readFile(READ_ALL_DATA, NULL)) == FILE_OPENING_ERROR) {
+				print("Tiedostoa ei voitu avata!\n");
 			}
 			else {
 				printf("\nKokonaismäärä: %d\n", dataCount);
@@ -27,11 +27,11 @@ int main(int argc, char *argv[]) {
 		else {
 			DataStruct output;
 			int dataNum = strToInt(argv[2]);
-			if (readFile(dataNum, &output) == -1) {
+			if (readFile(dataNum, &output) == FILE_OPENING_ERROR) {
 				print("Tiedostoa ei voitu avata!\n");
 				return -1;
 			}
-			printf("%s, %d\n", output.str, output.strlen);
+			printf("%s\n", output.str);
 		}
 	}
 	return 0;

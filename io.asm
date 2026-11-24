@@ -1,12 +1,12 @@
 global print
 global input
 
-extern stringlen
+extern stringLen
 
 section .text
 
 print:
-	call stringlen
+	call stringLen
 
 	mov rdx, rax
 	mov rsi, rdi
