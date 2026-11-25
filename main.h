@@ -6,8 +6,12 @@
 #define STR_BUFFER 64
 
 #define FILE_OPENING_ERROR 0
+
 #define GET_DATA_AMOUNT -1
 #define READ_ALL_DATA -2
+
+#define NO_DATABASE_FOUND -4
+#define TOO_LONG_INPUT -5
 
 typedef struct {
 	int id;
@@ -23,7 +27,9 @@ extern int stringComp(char *string1, char *string2);
 extern int strToInt(char *string);
 extern void assignString(char *dstString, char *srcString);
 
-extern int writeFile(char *stringToWrite);
-extern int readFile(int dataToRead, DataStruct *outputData);
+extern int writeFile(char *stringToWrite, char *filename);
+extern int readFile(int dataToRead, DataStruct *outputData, char *filename);
+
+extern void createNewDatabase(char *dbName);
 
 #endif

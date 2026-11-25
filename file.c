@@ -1,15 +1,21 @@
 #include "main.h"
 
-#define FILENAME "data.bin"
+#define DB_LIST_FILE "databases.bin"
 
 DataStruct data;
 
 FILE *fptr;
 
-int writeFile(char *stringToWrite) {
-	int id = readFile(GET_DATA_AMOUNT, NULL);
+int checkDatabaseNames(char *dbName);
 
-	fptr = fopen(FILENAME, "ab");
+int writeFile(char *stringToWrite, char *filename) {
+	int id = readFile(GET_DATA_AMOUNT, NULL, filename);
+
+	if (stringComp(filename, DB_LIST_FILE) != 0 && checkDatabaseNames(filename) == NO_DATABASE_FOUND) {
+		return NO_DATABASE_FOUND;
+	}
+
+	fptr = fopen(filename, "ab");
 
 	data.id = id;
 	data.strlen = stringLen(stringToWrite);
@@ -23,8 +29,8 @@ int writeFile(char *stringToWrite) {
 	return 0;
 }
 
-int readFile(int dataToRead, DataStruct *outputData) {
-	if ((fptr = fopen(FILENAME, "rb")) == NULL) return FILE_OPENING_ERROR;
+int readFile(int dataToRead, DataStruct *outputData, char *filename) {
+	if ((fptr = fopen(filename, "rb")) == NULL) return FILE_OPENING_ERROR;
 
 	int dataCounter = 0;
 
@@ -46,4 +52,37 @@ int readFile(int dataToRead, DataStruct *outputData) {
 	fclose(fptr);
 	return dataCounter;
 }
+
+void createNewDatabase(char *dbName) {
+	writeFile(dbName, DB_LIST_FILE);
+	fclose(fopen(dbName, "wb"));
+}
+
+int viewDatabases() {
+	return readFile(READ_ALL_DATA, NULL, DB_LIST_FILE);
+}
+
+int checkDatabaseNames(char *dbName) {
+	if ((fptr = fopen(DB_LIST_FILE, "rb")) == NULL) return FILE_OPENING_ERROR;
+
+	int dbIndex = 0;
+
+	while (fread(&data, sizeof(data), 1, fptr)) {
+		if (stringComp(data.str, dbName) == 0) {
+			fclose(fptr);
+			return dbIndex;
+		}
+		dbIndex ++;
+	}
+	fclose(fptr);
+	return NO_DATABASE_FOUND;
+}
+
+
+
+
+
+
+
+
 
